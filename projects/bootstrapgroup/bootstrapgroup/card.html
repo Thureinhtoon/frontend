@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>CARD</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<link rel="icon" href="image/logo.png">
+	<link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
+	<script type="text/javascript">
+		$(document).ready(function(){
+			display();
+			function display(){
+				var html='';
+				var  total=0;
+				var order=localStorage.getItem('order');
+				if(order){
+					var orderObj=JSON.parse(order);
+					var orderArr=orderObj.orderlist;
+					for(var i=0;i<orderArr.length;i++){
+						var id=orderArr[i].id;
+						var imgname="img"+(id)+".jpg"
+						var name=orderArr[i].name;
+						var price=orderArr[i].price;
+						var Qty=orderArr[i].Qty;
+						var subtotal=price*Qty;
+						total+=subtotal
+						html+=`<tr>
+									<td><img src="images/${imgname}" width="120px" height="120px">${name}</td>
+									<td><p class="py-5">${price}</p></td>
+									<td><input type="number" class="Qty form-control my-5" size="10" value=${Qty} data-i="${i}"></td>
+									<td><p class="py-5">${subtotal} MMK</p></td>
+								</tr>`
+					}
+					html+=`<tr><td colspan="3">Total</td>
+								<td>${total} MMK</td></tr>
+								<tr><td colspan="3"></td>
+								<td><button class="order_btn btn btn-outline-success" data-toggle="modal" data-target="#mymodal">Order</button>`
+				
+				}
+				else{
+					html=`<tr>
+								<td colspan="4">
+									<p class="py-5">Empty Card!<br><br>Add, Order and enjoy..!</p>
+								</td>
+							</tr>`
+				}
+				$('#tbody').html(html);
+			}
+			$('#tbody').on('click','.order_btn',function(){
+				var html1='';
+				var total=0;
+				var order=localStorage.getItem('order');
+				var orderObj=JSON.parse(order);
+				var orderArr=orderObj.orderlist;
+				for(var i=0;i<orderArr.length;i++){
+					var id=orderArr[i].id;
+					var imgname="img"+(id)+".jpg"
+					var name=orderArr[i].name;
+					var price=orderArr[i].price;
+					var Qty=orderArr[i].Qty;
+					var subtotal=price*Qty;
+					total+=subtotal
+					html1+=`${name} : ${Qty}<br>`
+				}
+				html1+=`Total : ${total} MMK`
+				console.log(html1)
+				$('#confirm_order').html(html1);
+
+			})
+			$('#modal').click(function(){
+				var order=localStorage.getItem('order');
+				var orderObj=JSON.parse(order);
+				var orderArr=orderObj.orderlist;
+				localStorage.clear();
+				alert('Your Order Successfully complete');
+				display();
+			})
+			$('#tbody').on('change','.Qty',function(){
+				var Qty=$(this).val();
+				var i=$(this).data('i');
+				console.log(Qty+","+i)
+				var order=localStorage.getItem('order');
+				if(order){
+					var orderObj=JSON.parse(order);
+					var orderArr=orderObj.orderlist;
+					if(Qty<=0){
+						orderArr.splice(i,1);
+					}
+					else{
+						orderArr[i].Qty=Qty;
+					}
+					var orderStr=JSON.stringify(orderObj);
+				 	localStorage.setItem('order',orderStr);
+				 	display();
+
+
+				}
+			})
+		})
+	</script>
+</head>
+<body>
+	<img src="image/logo.png" width="200px" class="rounded mx-auto d-block" >
+
+	<nav class="navbar navbar-light bg-light navbar-expand-sm shadow-sm m-auto sticky-top" >
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#mynav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+		
+		<div class="collapse navbar-collapse " id="mynav" >
+
+		<ul class="navbar-nav m-auto">
+			
+
+			<li class="nav-item ">
+				<a href="index.html" class="nav-link text-danger">HOME</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="product.html" class="nav-link text-danger">PRODUCT</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="about.html" class="nav-link text-danger">ABOUT US</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="image.html" class="nav-link text-danger">GALLERY</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="sample.html" class="nav-link text-danger">CONTACT</a>
+			</li>
+		</ul>
+  </div>
+  </nav>
+  
+	<div class="container">
+		<table class="table text-left d-lg-table-cell">
+			<thead class="thead-inverse">
+				<tr>
+					<th>Product</th>
+					<th>Price</th>
+					<th>Quantity</th>
+					<th>Sub Total</th>
+				</tr>
+			</thead>
+
+			<tbody id="tbody">
+				
+			</tbody>
+		</table>
+	</div>
+	<div class="modal" id="mymodal" tabindex="-1" role="dialog">
+	  <div class="modal-dialog" role="document">
+	    <div class="modal-content">
+	      <div class="modal-header">
+	        <h5 class="modal-title">Ordering Wines</h5>
+	        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+	          <span aria-hidden="true">&times;</span>
+	        </button>
+	      </div>
+	      <div class="modal-body">
+	        <h2 class="h2">Are you sure want to order</h2>
+	        <p id="confirm_order"></p>
+	      </div>
+	      <div class="modal-footer">
+	        <button type="button" class="btn btn-secondary" data-dismiss="modal">cancel</button>
+	        <button type="button" id="modal" class="btn btn-success" data-dismiss="modal" data-confirm="1">Order</button>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+	<section class="bg-light">
+    <div class="container">
+      <div class="row py-5">
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Escape Wine Shop</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">escapewine.com</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">+00 123 456 789</a>
+            </li>
+            <br>
+            <li class="nav-item">Escape Winery Company</li>
+            <li class="nav-item">Escape Garden</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Pages</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">Escape Wine</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">Escape Facebook Page</a>
+            </li>
+            <li><a href="" class="text-dark">Escape Wine Group</a></li>
+            <li>
+              <a href="#" class="text-dark">Red Mountain</a>
+            </li>
+            <li><a href="" class="text-dark">Wine Lab</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Contact</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">escape.wine@gmail.com</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">redmountain.myanmar@gmail.com</a>
+            </li>
+            <li><a href="" class="text-dark">+00 123 456 789</a></li>
+            <li>
+              <a href="#" class="text-dark">+98 765 432 100</a>
+            </li>
+            <li><a href="" class="text-dark">Myanmar, Yangon</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+	 <footer class="bg-secondary text-white py-3 w-100">
+    <p class="text-center m-0">All right reversed @ copyright by Escape Winery</p>
+  </footer>
+
+</body>
+</html>
+
+

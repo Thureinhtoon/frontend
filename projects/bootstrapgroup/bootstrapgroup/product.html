@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>PRODUCT</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shink-to-fit=no">
+	<link rel="stylesheet" type="text/css" href="bootstrap/css/bootstrap.min.css">
+	<script type="text/javascript" src="jquery/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.bundle.min.js"></script>
+	<link rel="icon" href="image/logo.png">
+	<link rel="stylesheet" type="text/css" href="fontawesome/css/all.min.css">
+	<style type="text/css">
+		.flip-card {
+		  background-color: #d5dbdb;
+		  width: 100%;
+		  height: 380px;
+		  perspective: 1000px;
+		}
+
+		.flip-card-inner {
+		  position: relative;
+		  width: 100%;
+		  height: 100%;
+		  transition: transform 0.6s;
+		  transform-style: preserve-3d;
+		  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+		}
+
+		.flip-card:hover .flip-card-inner {
+		  transform: rotateY(180deg);
+		}
+
+		.flip-card-front, .flip-card-back {
+		  position: absolute;
+		  width: 100%;
+		  height: 100%;
+		  backface-visibility: hidden;
+		}
+
+		.flip-card-front {
+		  background-color: #bbb;
+		  color: black;
+		}
+
+		.flip-card-back {
+		  background-color: #5a0209;
+		  color: white;
+		  transform: rotateY(180deg);
+		}
+
+	</style>
+<script type="text/javascript">
+	$(document).ready(function(){
+		showadd();
+		function showadd(){
+			for(var i=1;i<=12;i++){
+				var add="#add"+i;
+				$(add).hide();
+			}
+			for(var i=1;i<=12;i++){
+				var add="#add"+i;
+				var order=localStorage.getItem('order');
+				if(!order){
+					order='{"orderlist":[]}';
+				}
+				var orderObj=JSON.parse(order);
+				var orderArr=orderObj.orderlist;
+				for(var j=0;j<orderArr.length;j++){
+					if(orderArr[j].id==i){
+						$(add).show();
+					}
+				}
+				var no=orderArr.length;
+				$('#order_no').html(no);
+			}
+		}
+		
+
+		$('.btn').click(function(){
+			var i=$(this).data('i');
+			
+			switch (i) {
+				case 1:
+					var name="Silex, Tautavel-Roussillon";
+					var price=60000;
+					$('#add1').toggle();
+					break;
+				case 2:
+					var name="Rocher Des Buis, Tautavel-Roussillon";
+					var price=46000;
+					$('#add2').toggle();
+					break;
+				case 3:
+					var name="Domaine Des 3 Vallees,Tautavel-Roussillonl";
+					var price=30000;
+					$('#add3').toggle();
+					break;
+				case 4:
+					var name="ROC Gris,Tautavel-Roussillon";
+					var price=28000;
+					$('#add4').toggle();
+					break;
+				case 5:
+					var name="Le Crique,Tautavel-Roussillon";
+					var price=25000;
+					$('#add5').toggle();
+					break;
+				case 6:
+					var name="Les Costes,Tautavel-Roussillon";
+					var price=25000;
+					$('#add6').toggle();
+					break;
+				case 7:
+					var name="Les Pas Des Bouisses,Tautavel-Roussillon";
+					var price=25000;
+					$('#add7').toggle();
+					break;
+				case 8:
+					var name="Four Seasons Yarra Valley Pinot Noir";
+					var price=25000;
+					$('#add8').toggle();
+					break;
+				case 9:
+					var name="Fresita Strawberry Spearkling Wine";
+					var price=85000;
+					$('#add9').toggle();
+					break;
+				case 10:
+					var name="Four Seasons Yarra Valley Chardonnay";
+					var price=25000;
+					$('#add10').toggle();
+					break;
+				case 11:
+					var name="Human Victorian Dry Red";
+					var price=25000;
+					$('#add11').toggle();
+					break;
+				case 12:
+					var name="Lieu-Dit Verdot 2012 BOrdeaux";
+					var price=59000;
+					$('#add12').toggle();
+					break;
+
+			}
+			var userOrder={id:i,name:name,price:price,Qty:1}
+			var order=localStorage.getItem('order');
+			if(!order){
+				order='{"orderlist":[]}';
+			}
+			var orderObj=JSON.parse(order);
+			var orderArr=orderObj.orderlist;
+			var b=0;
+			for(var j=0;j<orderArr.length;j++){
+				if(orderArr[j].id==i){
+					b=1;
+					var n=j;
+				}
+			}
+			if(b==0){
+				orderArr.push(userOrder);	
+			}
+			else{
+				orderArr.splice(n,1);
+			}
+			var orderStr=JSON.stringify(orderObj);
+			localStorage.setItem('order',orderStr);
+			showadd();
+		})
+	})
+</script>
+</head>
+<body>
+	<img src="image/logo.png" width="200px" class="rounded mx-auto d-block" >
+
+	<nav class="navbar navbar-light bg-light navbar-expand-sm shadow-sm m-auto sticky-top" >
+    <button class="navbar-toggler" data-toggle="collapse" data-target="#mynav">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+		<div class="collapse navbar-collapse " id="mynav" >
+
+		<ul class="navbar-nav m-auto">
+			
+
+			<li class="nav-item ">
+				<a href="index.html" class="nav-link text-danger p-md-3">HOME</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="product.html" class="nav-link text-white bg-danger p-md-3" >PRODUCT</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="about.html" class="nav-link text-danger p-md-3">ABOUT US</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="image.html" class="nav-link text-danger p-md-3">GALLERY</a>
+			</li>
+
+			<li class="nav-item ">
+				<a href="sample.html" class="nav-link text-danger p-md-3">CONTACT</a>
+			</li>
+		</ul>
+		<button class="border-0 bg-light">
+			<a href="card.html">
+				<i class="fas fa-shopping-cart text-danger fa-2x"></i>
+				<span id="order_no" class="bg-danger font-weight-bold text-white d-inline px-1 text-center" style="border-radius: 50%"></span>
+			</a>
+		</button>
+  </div>
+  </nav>
+  
+	<section class="p-5" style="background-color: #d5dbdb">
+		<div class="container">
+			<h1 class="text-center text-danger"><i class="fas fa-wine-bottle"></i>...You can order now...<i class="fas fa-wine-bottle"></i></h1>
+			<div class="row mt-5">
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img1.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Siex,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000018<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah, Carignan<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2013<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Siex,Tautavel-Roussillon</h4>
+							<p class="text-danger">60,000 MMK</p>
+							<div id="add1">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn1" data-i="1">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img2.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Rocher Des Buis,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000017<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2014<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Rocher Des Buis,Tautavel-Roussillon</h4>
+							<p class="text-danger">46,000 MMK</p>
+							<div id="add2">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn2" data-i="2">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img3.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Domaine Des 3 Vallees,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000016<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah,Carigian<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2013<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Domaine Des 3 Vallees,Tautavel-Roussillon</h4>
+							<p class="text-danger">30,000 MMK</p>
+							<div id="add3">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn3" data-i="3">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img4.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">ROC Gris,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000015<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah,Carignan<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2014<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">ROC Gris,Tautavel-Roussillon</h4>
+							<p class="text-danger">28,000 MMK</p>
+							<div id="add4">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn4" data-i="4">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img5.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Le Crique,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>0000114<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah, Carignan<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2014<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Le Crique,Tautavel-Roussillon</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add5">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn5" data-i="5">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img6.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Le Costes,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000013<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache, Syrah<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2013<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Le Costes,Tautavel-Roussillon</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add6">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn6" data-i="6">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img7.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Les Pas Des Bouisses,Tautavel-Roussillon</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000012<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Grenache<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2013<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Les Pas Des Bouisses,Tautavel-Roussillon</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add7">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn7" data-i="7">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img8.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Four Seasons Yarra Valley Point Noir</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000014<br>
+											<b class="h5">Country :</b>Australia<br>
+											<b class="h5">Grape Varieties :</b>Pinot Noir<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2010<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Four Seasons Yarra Valley Point Noir</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add8">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn8" data-i="8">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img9.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Fresita Strawberry Spearking Wine</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000027<br>
+											<b class="h5">Country :</b>Chile<br>
+											<b class="h5">Grape Varieties :</b>Mixture of Sauvignon Blanc and Chardonnay<br>
+											<b class="h5">Type :</b>Sweet<br>
+											<b class="h5">Vintage :</b>2016<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Fresita Strawberry Spearking Wine</h4>
+							<p class="text-danger">85,000 MMK</p>
+							<div id="add9">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn9" data-i="9">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img10.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Four Seasons Yarra Valley Chardonnay</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000013<br>
+											<b class="h5">Country :</b>Australia<br>
+											<b class="h5">Grape Varieties :</b>Chardonnay<br>
+											<b class="h5">Type :</b>White<br>
+											<b class="h5">Vintage :</b>2009<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Four Seasons Yarra Valley Chardonnay</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add10">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn10" data-i="10">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img11.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Huma Victorian Dry Red</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000015<br>
+											<b class="h5">Country :</b>Australia<br>
+											<b class="h5">Grape Varieties :</b>Cabemet,Sauvignon,Merlot,Nebbion,Sangiovse,Chardonnay<br>
+											<b class="h5">Type :</b>Dry Red<br>
+											<b class="h5">Vintage :</b>Non-vintage<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Huma Victorian Dry Red</h4>
+							<p class="text-danger">25,000 MMK</p>
+							<div id="add11">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn11" data-i="11">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-3 col-md-4 col-sm-6 pt-5">
+					<div class="card">
+						<div class="card-body p-0">
+							<div class="flip-card">
+								<div class="flip-card-inner">
+									<div class="flip-card-front">
+										<img src="images/img12.jpg" width="100%" height="380px">
+									</div>
+									<div class="flip-card-back" style="line-height: 35px;">
+										<h4 class="h5 p-2">Lie-Dit Verdot 2012 BOrdeaux</h5>
+											<hr style="border: 2px dotted white">
+										<p class="p-2">
+											<b class="h5">Item No :</b>000001<br>
+											<b class="h5">Country :</b>France<br>
+											<b class="h5">Grape Varieties :</b>Merlot, Pedit,Verdot<br>
+											<b class="h5">Type :</b>Red<br>
+											<b class="h5">Vintage :</b>2012<br>
+										</p>
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="card-footer text-center" style="background-color: #f5f1f1">
+							<h4 class="h4">Lie-Dit Verdot 2012 BOrdeaux</h4>
+							<p class="text-danger">59,000 MMK</p>
+							<div id="add12">
+								<i class="fas fa-check-square" style="color: green">added</i>
+							</div>
+							<button class="btn btn-outline-success" id="btn12" data-i="12">
+								<i class="far fa-money-bill-alt fa-2x"></i>
+							Add to Card</button>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="bg-light">
+    <div class="container">
+      <div class="row py-5">
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Escape Wine Shop</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">escapewine.com</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">+00 123 456 789</a>
+            </li>
+            <br>
+            <li class="nav-item">Escape Winery Company</li>
+            <li class="nav-item">Escape Garden</li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Pages</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">Escape Wine</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">Escape Facebook Page</a>
+            </li>
+            <li><a href="" class="text-dark">Escape Wine Group</a></li>
+            <li>
+              <a href="#" class="text-dark">Red Mountain</a>
+            </li>
+            <li><a href="" class="text-dark">Wine Lab</a></li>
+          </ul>
+        </div>
+        <div class="col-md-4">
+          <h4 class="h4 py-2">Contact</h4>
+          <ul class="text-dark list-unstyled">
+            <li>
+              <a href="#" class="text-dark">escape.wine@gmail.com</a>
+            </li>
+            <li>
+              <a href="#" class="text-dark">redmountain.myanmar@gmail.com</a>
+            </li>
+            <li><a href="" class="text-dark">+00 123 456 789</a></li>
+            <li>
+              <a href="#" class="text-dark">+98 765 432 100</a>
+            </li>
+            <li><a href="" class="text-dark">Myanmar, Yangon</a></li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+	 <footer class="bg-secondary text-white py-3 w-100">
+    <p class="text-center m-0">All right reversed @ copyright by red mountain</p>
+  </footer>
+</body>
+</html>
